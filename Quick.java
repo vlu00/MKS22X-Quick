@@ -14,12 +14,16 @@ public class Quick{
 
   public static int quickSelect(int[] data, int k) {
     int[][] tempData = partition(data, 0, data.length-1);
+    int max = data.length-1;
+    int min = 0;
     while (tempData[1][0] != k) {
       if (k < tempData[1][0]) {
-        tempData = partition(tempData[0], 0, tempData[1][0]-1);
+        max = tempData[1][0]-1;
+        tempData = partition(tempData[0], min, tempData[1][0]-1);
       }
       else {
-        tempData = partition(tempData[0], tempData[1][0]+1, data.length-1);
+        min = tempData[1][0]+1;
+        tempData = partition(tempData[0], tempData[1][0]+1, max);
       }
     }
     return tempData[0][k];
@@ -75,11 +79,11 @@ public class Quick{
 
 
   public static void main (String[] args) {
-    //int [] A = new int [100];
-    //for (int i = 0; i < 100; i++) {
-    //  A[i] = 7;
-    //}
-    int[] A = new int[] {0, 9, 6, 2, 3, 8, 7};
+    int [] A = new int [50];
+    for (int i = 0; i < 50; i++) {
+      A[i] = 50-i;
+    }
+    //int[] A = new int[] {0, 7, 7, 2, 3, 8, 7};
     System.out.println(quickSelect(A, 4));
   }
 }
