@@ -29,6 +29,17 @@ public class Quick{
     return tempData[0][k];
   }
 
+  private static int findPivot (int[] data, int start, int end) {
+    Random rng = new Random();
+    int[] list = new int[3];
+    list[0] = data[start];
+    list[1] = data[end];
+    list[2] = rng.nextInt(end-start-1) + start + 1;
+
+    for (int i = 0; i < 3; i++) {
+    }
+  }
+
   public static int[][] partition (int [] data, int start, int end) {
     Random rng = new Random();
     int pivot = rng.nextInt(end-start+1) + start;
@@ -84,6 +95,6 @@ public class Quick{
       A[i] = 50-i;
     }
     //int[] A = new int[] {0, 7, 7, 2, 3, 8, 7};
-    System.out.println(quickSelect(A, 4));
+    System.out.println(quickSelect(A, 12));
   }
 }
