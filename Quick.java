@@ -1,4 +1,6 @@
 import java.util.Random;
+import java.io.*;
+import java.util.*;
 
 public class Quick{
 
@@ -10,15 +12,11 @@ public class Quick{
     return display;
   }
 
-  public static int indexOf(int [] data, int value) {
-    int i = 0;
-    while (data[i] < value) {
-      i++;
-    }
-    return i;
+  public static int quickSelect(int[] data, int k) {
+    return 1;
   }
 
-  public static int partition (int [] data, int start, int end) {
+  public static int[][] partition (int [] data, int start, int end) {
     Random rng = new Random();
     int pivot = rng.nextInt(end-start+1) + start;
 
@@ -60,10 +58,15 @@ public class Quick{
     data[0] = data[index];
     data[index] = num;
 
-    System.out.println(num);
-    System.out.println(toString(data));
+    int[][] newData = new int[2][];
+    //int[] a = new int[] {index};
+    newData[0] = data;
+    newData[1] = new int[] {index};
 
-    return index;
+    System.out.println(toString(newData[0]));
+    System.out.println(toString(newData[1]));
+
+    return newData;
   }
 
 
