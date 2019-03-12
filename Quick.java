@@ -10,13 +10,6 @@ public class Quick{
     return display;
   }
 
-  public static int lastIndexOf(int [] data, int start, int value) {
-    while (start < data.length && data[start] < value) {
-      start++;
-    }
-    return start-1;
-  }
-
   public static int indexOf(int [] data, int value) {
     int i = 0;
     while (data[i] < value) {
@@ -28,20 +21,26 @@ public class Quick{
   public static int partition (int [] data, int start, int end) {
     Random rng = new Random();
     int pivot = rng.nextInt(end-start+1) + start;
-    int mIndex = 1;
 
     int num = data[pivot];
     data[pivot] = data[start];
     data[start] = num;
     start++;
+    boolean moveLeft = true;
 
     while (start < end) {
       int temp = data[start];
       if (data[start] == num) {
-        data[start] = data[mIndex];
-        data[mIndex] = temp;
-        mIndex++;
-        start++;
+        if (moveLeft) {
+          start++;
+          moveLeft = false;
+        }
+        else {
+          data[start] = data[end];
+          data[end] = temp;
+          end--;
+          moveLeft = true;
+        }
       }
       else if (data[start] > num) {
         data[start] = data[end];
@@ -53,24 +52,27 @@ public class Quick{
       }
     }
 
-    int i = 0;
-    while (i < mIndex) {
-      int index = lastIndexOf(data, mIndex+i, num);
-      int temp = data[index];
-      data[index] = data[i];
-      data[i] = temp;
-      i++;
+    int index = 0;
+    while (index < data.length-1 && data[index+1] <= num) {
+      index++;
     }
 
-    return indexOf(data, num);
+    data[0] = data[index];
+    data[index] = num;
+
+    System.out.println(num);
+    System.out.println(toString(data));
+
+    return index;
   }
 
+
   public static void main (String[] args) {
-    int [] A = new int [100];
-    for (int i = 0; i < 100; i++) {
-      A[i] = 7;
-    }
-    //int[] A = new int[] {7, 9, 7, 7, 3, 0, 7};
-    System.out.println(partition(A, 0, 99));
+    //int [] A = new int [100];
+    //for (int i = 0; i < 100; i++) {
+    //  A[i] = 7;
+    //}
+    int[] A = new int[] {7, 9, 7, 2, 3, 0, 7};
+    System.out.println(partition(A, 0, 6));
   }
 }
