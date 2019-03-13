@@ -13,21 +13,27 @@ public class Quick{
   }
 
   public static int quickSelect(int[] data, int k) {
-    int[][] tempData = partition(data, 0, data.length-1);
+    //int[][] tempData = partition(data, 0, data.length-1);
     int max = data.length-1;
     int min = 0;
-    while (tempData[1][0] != k) {
-      if (k < tempData[1][0]) {
-        max = tempData[1][0]-1;
-        tempData = partition(tempData[0], min, tempData[1][0]-1);
+    int pivot = partition(data, 0, data.length-1);
+    System.out.println("first partition "+toString(data));
+    while (pivot != k) {
+      System.out.println(pivot);
+      if (k < pivot) {
+        max = pivot-1;
+        pivot = partition(data, min, max);
+        System.out.println(toString(data));
       }
       else {
-        min = tempData[1][0]+1;
-        tempData = partition(tempData[0], tempData[1][0]+1, max);
+        min = pivot+1;
+        pivot = partition(data, min, max);
+        System.out.println(toString(data));
       }
     }
-    return tempData[0][k];
+    return data[k];
   }
+  /*
 
   private static int findPivot (int[] data, int start, int end) {
     Random rng = new Random();
@@ -39,11 +45,14 @@ public class Quick{
     for (int i = 0; i < 3; i++) {
     }
   }
-
-  public static int[][] partition (int [] data, int start, int end) {
+*/
+  public static int partition (int [] data, int start, int end) {
     Random rng = new Random();
     int pivot = rng.nextInt(end-start+1) + start;
     int index = start;
+
+    System.out.println(pivot);
+    System.out.println(data[pivot]);
 
     int num = data[pivot];
     data[pivot] = data[start];
@@ -79,22 +88,27 @@ public class Quick{
       index++;
     }
 
+    System.out.println(toString(data));
+
+    /*
     data[0] = data[index];
     data[index] = num;
     int[][] newData = new int[2][];
     newData[0] = data;
     newData[1] = new int[] {index};
-
-    return newData;
+*/
+    return index;
   }
 
 
   public static void main (String[] args) {
+    /*
     int [] A = new int [50];
     for (int i = 0; i < 50; i++) {
       A[i] = 50-i;
     }
-    //int[] A = new int[] {0, 7, 7, 2, 3, 8, 7};
-    System.out.println(quickSelect(A, 12));
+    */
+    int[] A = new int[] {0, 7, 6, 2, 3, 8, 9};
+    System.out.println(partition(A, 2, 4));
   }
 }
