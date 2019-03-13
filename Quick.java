@@ -100,6 +100,19 @@ public class Quick{
     return index;
   }
 
+  public static void quicksort(int[] data) {
+    quicksort(data, 0, data.length);
+  }
+
+  public static void quicksort(int[] data, int lo, int hi) {
+    if (lo >= hi) {
+      return;
+    }
+    int pivot = partition(data, lo, hi);
+    quicksort(data, lo, pivot-1);
+    quicksort(data, pivot+1, hi);
+  }
+
 
   public static void main (String[] args) {
     /*
