@@ -12,49 +12,69 @@ public class Quick{
     return display;
   }
 
-  public static int quickSelect(int[] data, int k) {
-    //int[][] tempData = partition(data, 0, data.length-1);
+  public static int quickselect(int[] data, int k) {
     int max = data.length-1;
     int min = 0;
     int pivot = partition(data, 0, data.length-1);
-    System.out.println("first partition "+toString(data));
+
     while (pivot != k) {
-      System.out.println(pivot);
       if (k < pivot) {
         max = pivot-1;
         pivot = partition(data, min, max);
-        System.out.println(toString(data));
       }
       else {
         min = pivot+1;
         pivot = partition(data, min, max);
-        System.out.println(toString(data));
       }
     }
     return data[k];
   }
-  /*
 
-  private static int findPivot (int[] data, int start, int end) {
-    Random rng = new Random();
-    int[] list = new int[3];
-    list[0] = data[start];
-    list[1] = data[end];
-    list[2] = rng.nextInt(end-start-1) + start + 1;
-
-    for (int i = 0; i < 3; i++) {
-    }
-  }
+  public static int findPivot(int [] data, int start, int end) {
+/*
+    int first = data[start];
+    int second = data[(start+end)/2];
+    int third = data[end];
 */
+    int total = data[start] + data[(start+end)/2] + data[end];
+    int max = Math.max(data[start], Math.max(data[(start+end)/2], data[end]));
+    int min = Math.min(data[start], Math.min(data[(start+end)/2], data[end]));
+    int median = total - max - min;
+
+    if (median == data[start]) {
+      return start;
+    }
+    if (median == data[end]) {
+      return end;
+    }
+    return (start+end)/2;
+    /*
+
+    if (first >= second) {
+      if (second >= third) {
+        return second;
+      }
+      if (third >= first) {
+        return first;
+      }
+      return third;
+    }
+
+    if (third >= second) {
+      return second;
+    }
+    if (first >= third) {
+      return first;
+    }
+    return third;
+    */
+  }
+
   public static int partition (int [] data, int start, int end) {
-    Random rng = new Random();
-    int pivot = rng.nextInt(end-start+1) + start;
+    //Random rng = new Random();
+    int pivot =  findPivot(data, start, end); //rng.nextInt(end-start+1) + start; //
     int origStart = start;
     int index = start;
-
-
-    System.out.println("pivot "+ pivot);
-    System.out.println("value " + data[pivot]);
 
     int num = data[pivot];
     data[pivot] = data[start];
@@ -84,7 +104,6 @@ public class Quick{
       else {
         start++;
       }
-      System.out.println(toString(data));
     }
 
     while (index < data.length-1 && data[index+1] <= num) {
@@ -92,17 +111,8 @@ public class Quick{
     }
 
     data[origStart] = data[index];
-    data[index] = num;   
-
-    System.out.println(toString(data));
-
-    /*
-    data[0] = data[index];
     data[index] = num;
-    int[][] newData = new int[2][];
-    newData[0] = data;
-    newData[1] = new int[] {index};
-*/
+
     return index;
   }
 
@@ -121,13 +131,16 @@ public class Quick{
 
 
   public static void main (String[] args) {
-    /*
-    int [] A = new int [50];
-    for (int i = 0; i < 50; i++) {
-      A[i] = 50-i;
+
+    int [] A = new int [10000000];
+    for (int i = 0; i < 10000000; i++) {
+      A[i] = 10000000-i;
     }
-    */
-    int[] A = new int[] {0, 7, 6, 2, 3, 8, 9};
-    System.out.println(partition(A, 2, 4));
+
+    int[] B = new int[] {0, 7, 6, 2, 3, 8, 9};
+    System.out.println(findPivot(B, 1, 5));
+    System.out.println(quickselect(A, 4));
+    System.out.println(quickselect(A, 6));
+    System.out.println(quickselect(A, 15));
   }
 }
