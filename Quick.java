@@ -49,10 +49,12 @@ public class Quick{
   public static int partition (int [] data, int start, int end) {
     Random rng = new Random();
     int pivot = rng.nextInt(end-start+1) + start;
+    int origStart = start;
     int index = start;
 
-    System.out.println(pivot);
-    System.out.println(data[pivot]);
+
+    System.out.println("pivot "+ pivot);
+    System.out.println("value " + data[pivot]);
 
     int num = data[pivot];
     data[pivot] = data[start];
@@ -82,11 +84,15 @@ public class Quick{
       else {
         start++;
       }
+      System.out.println(toString(data));
     }
 
     while (index < data.length-1 && data[index+1] <= num) {
       index++;
     }
+
+    data[origStart] = data[index];
+    data[index] = num;   
 
     System.out.println(toString(data));
 
