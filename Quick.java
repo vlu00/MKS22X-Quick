@@ -4,6 +4,22 @@ import java.util.*;
 
 public class Quick{
 
+  public static void insertionsort(int[] data, int lo, int hi) {
+    if (hi-lo+1 > 1) { //if length is 0 or 1, data remains the same
+      int counter = lo;
+      while (counter < hi) {
+        int x = data[counter+1];
+        int index = counter+1;
+        for (int n = counter+1; n != lo && data[n-1] > x; n--) {
+          data[n] = data[n-1];
+          index--;
+        }
+        data[index] = x;
+        counter++;
+      }
+    }
+  }
+
   public static int quickselect(int[] data, int k) {
     int max = data.length-1; //upper bound. Ignore numbers after this
     int min = 0; //lower bound. Ignore number before this
@@ -101,5 +117,11 @@ public class Quick{
     int pivot = partition(data, lo, hi); //new pivot and one element is in correct position
     quicksort(data, lo, pivot-1); //sort first half
     quicksort(data, pivot+1, hi); //sort second half
+  }
+
+  public static void main(String[] args) {
+    int[] A = new int[] {2, 5, 3, 7, 4, 1, 6};
+    insertionsort(A, 1, 5);
+    System.out.println(Arrays.toString(A));
   }
 }
