@@ -110,6 +110,18 @@ public class Quick{
     quicksort(data, 0, data.length-1); //helper method
   }
 
+  //trying with insertionsort
+  public static void quicksort(int[] data, int lo, int hi) {
+    if (hi-lo+1 < 10) { //if start has reached end
+      insertionsort(data, lo, hi); //done
+    }
+    else {
+      int pivot = partition(data, lo, hi); //new pivot and one element is in correct position
+      quicksort(data, lo, pivot-1); //sort first half
+      quicksort(data, pivot+1, hi); //sort second half
+    }
+  }
+/*
   public static void quicksort(int[] data, int lo, int hi) {
     if (lo >= hi) { //if start has reached end
       return; //done
@@ -118,10 +130,10 @@ public class Quick{
     quicksort(data, lo, pivot-1); //sort first half
     quicksort(data, pivot+1, hi); //sort second half
   }
-
+*/
   public static void main(String[] args) {
     int[] A = new int[] {2, 5, 3, 7, 4, 1, 6};
-    insertionsort(A, 1, 5);
+    quicksort(A);
     System.out.println(Arrays.toString(A));
   }
 }
